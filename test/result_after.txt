@@ -1,0 +1,168 @@
+Step #1
+Name: welcome
+Expressions: ['感谢你联系 Apple 售后服务部门。请问今天有什么可以帮到你？', '你可以说“账单”、“支持”、“政策”或“人工”，了解相应的信息。']
+Listen: [5, 20]
+Answers: {'账单': 'validation_orders', '支持': 'validation_support', '政策': 'policy_cmds', '再见': 'exit'}
+Awake: second_welcome
+Default: second_welcome
+
+Step #2
+Name: second_welcome
+Expressions: ['还在线吗？你可以说“账单”、“支持”、“政策”或“人工”，了解相应的信息。']
+Listen: [5, 20]
+Answers: {'账单': 'validation_orders', '支持': 'validation_support', '政策': 'policy_cmds', '再见': 'exit', '人工': 'to_human_assistance'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #3
+Name: validation_orders
+Expressions: ['您的AppleID名称是？']
+Listen: [5, 20]
+Answers: {'pass': 'order_cmds', 'fail': 'unknown_request', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #4
+Name: order_cmds
+Expressions: ['您想查询关于订阅，订单状态，所有订单还是退货状态的信息？']
+Listen: [5, 20]
+Answers: {'订阅': 'subscription_info', '订单': 'order_status', '退货': 'return_status', '支持': 'validation_support', '政策': 'policy_cmds', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #5
+Name: subscription_info
+Expressions: ['您的订阅内容是：', '<$subName>', '到期时间为：', '<$subDueDate>', '金额为:', '<$subPayment>', '您还有其他需要查询的订单信息吗？']
+Listen: [5, 20]
+Answers: {'订单': 'order_status', '退货': 'return_status', '支持': 'validation_support', '政策': 'policy_cmds', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #6
+Name: order_status
+Expressions: ['您的订单号为：', '<$orderNo>', '订单状态为：', '<$orderStatus>', '预计送达时间：', '<$deliveryDate>', '您还有其他需要查询的订单信息吗？']
+Listen: [5, 20]
+Answers: {'订阅': 'subscription_info', '退货': 'return_status', '支持': 'validation_support', '政策': 'policy_cmds', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #7
+Name: return_status
+Expressions: ['您的退货状态是：', '<$returnStatus>', '预计完成时间：', '<$returnDueDate>', '您还有其他需要查询的订单信息吗？']
+Listen: [5, 20]
+Answers: {'订阅': 'subscription_info', '订单': 'order_status', '支持': 'validation_support', '政策': 'policy_cmds', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #8
+Name: validation_support
+Expressions: ['您的AppleID名称是？']
+Listen: [5, 20]
+Answers: {'pass': 'support_cmds', 'fail': 'unknown_request', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #9
+Name: support_cmds
+Expressions: ['感谢你联系Apple支持。你可以进行设备“检测”、了解“维修”渠道、“预约”维修或购买产品“保险” AppleCare+ 服务计划。']
+Listen: [5, 20]
+Answers: {'检测': 'troubleshoot', '维修': 'how_to_fix', '预约': 'genius_bar', '保险': 'applecare_plus', '账单': 'validation_orders', '政策': 'policy_cmds', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #10
+Name: troubleshoot
+Expressions: ['已经远程发起检测。稍后你可以在设备上查看检测结果。', '您还有其他支持问题吗？你可以了解“维修”渠道、“预约”维修或购买产品“保险” AppleCare+ 服务计划。']
+Listen: [5, 20]
+Answers: {'维修': 'how_to_fix', '预约': 'genius_bar', '保险': 'applecare_plus', '账单': 'validation_orders', '政策': 'policy_cmds', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #11
+Name: how_to_fix
+Expressions: ['设备型号：', '<$deviceName>', '出现的故障为：', '<$faultStatus>', '建议维修方法：', '<$fixMethod>', '如果需要查询附近的Apple Store预约维修，请说“预约”。']
+Listen: [5, 20]
+Answers: {'预约': 'genius_bar', '账单': 'validation_orders', '政策': 'policy_cmds', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #12
+Name: genius_bar
+Expressions: ['推荐商店：', '<$storeName>', '可选时间段：', '<$ATimeSlots>', '如果需要预约，请说“人工”。']
+Listen: [5, 20]
+Answers: {'检测': 'troubleshoot', '维修': 'how_to_fix', '保险': 'applecare_plus', '账单': 'validation_orders', '政策': 'policy_cmds', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #13
+Name: applecare_plus
+Expressions: ['您的 AppleCare+ 服务状态为：', '<$acStatus>', '到期时间：', '<$acDueDate>', '您还有其他问题吗？']
+Listen: [5, 20]
+Answers: {'检测': 'troubleshoot', '维修': 'how_to_fix', '预约': 'genius_bar', '账单': 'validation_orders', '政策': 'policy_cmds', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #14
+Name: policy_cmds
+Expressions: ['你可以在此了解 Apple 的“隐私政策”，“退货政策”与“辅助功能”。请告诉我你想了解什么？']
+Listen: [5, 20]
+Answers: {'隐私政策': 'privacy_policy', '退货政策': 'return_policy', '辅助功能': 'accessibility', '账单': 'validation_orders', '支持': 'validation_support'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #15
+Name: privacy_policy
+Expressions: ['在Apple，我们尊重你获知、访问、更正、传输、限制处理和删除你的个⼈数据的能⼒。我们向我们全球的每⼀位客户提供这些权利，如果你选择⾏使这些隐私权，你有权不受到Apple的区别对待，有权从Apple获得与不⾏使隐私权时应获得的同等程度的服务质量。如果被要求同意 Apple 处理你的个⼈数据，你有权随时撤回你的同意。', '您还想了解什么？']
+Listen: [5, 20]
+Answers: {'退货政策': 'return_policy', '辅助功能': 'accessibility', '账单': 'validation_orders', '支持': 'validation_support', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #16
+Name: return_policy
+Expressions: ['如需退回产品，您仅需在产品交付之日起 14 天内在您的个人账户中进行自助退货操作，或者联系我们的顾客服务团队提出退货申请。如果您是通过Apple零售店取货，您也可将您的商品退回到您取货的Apple零售店。 ', '您还想了解什么？']
+Listen: [5, 20]
+Answers: {'隐私政策': 'privacy_policy', '辅助功能': 'accessibility', '账单': 'validation_orders', '支持': 'validation_support', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #17
+Name: accessibility
+Expressions: ['好的科技，应让人人都适用。正因如此，我们的产品和服务采取了具有包容性的设计，内置众多辅助功能，帮你能按照适合自己的方式来交流、创作，投入所喜欢的事。', '您还想了解什么？']
+Listen: [5, 20]
+Answers: {'隐私政策': 'privacy_policy', '退货政策': 'return_policy', '账单': 'validation_orders', '支持': 'validation_support', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #18
+Name: unknown_request
+Expressions: ['好的，明白你的问题。请稍候，正在与专家连线，以协助你解答相关的询问。']
+Listen: []
+Answers: {}
+Awake: None
+Default: to_human_assistance
+
+Step #19
+Name: to_human_assistance
+Expressions: ['已经成功接入人工。很高兴为您效劳，请问您在哪些方面需要协助？', 'APPLE RSL 关闭。']
+Listen: []
+Answers: {}
+Awake: None
+Default: None
+
+Step #20
+Name: awake_cmds
+Expressions: ['还在线吗？有什么需求请告诉我']
+Listen: [5, 20]
+Answers: {'账单': 'validation_orders', '支持': 'validation_support', '政策': 'policy_cmds', '订阅': 'validation_orders', '订单': 'validation_orders', '退货': 'validation_orders', '检测': 'validation_support', '维修': 'validation_support', '预约': 'validation_support', '保险': 'validation_support', '隐私政策': 'privacy_policy', '退货政策': 'return_policy', '辅助功能': 'accessibility', '再见': 'exit'}
+Awake: exit
+Default: to_human_assistance
+
+Step #21
+Name: exit
+Expressions: ['感谢您的来电，再见！']
+Listen: []
+Answers: {}
+Awake: None
+Default: None
+

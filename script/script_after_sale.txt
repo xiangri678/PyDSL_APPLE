@@ -1,0 +1,247 @@
+Step welcome
+    SAY "感谢你联系 Apple 售后服务部门。请问今天有什么可以帮到你？"
+    SAY "你可以说“账单”、“支持”、“政策”或“人工”，了解相应的信息。"
+    LISTEN 5 20
+    BRANCH "账单" validation_orders
+    BRANCH "支持" validation_support
+    BRANCH "政策" policy_cmds
+	BRANCH "再见" exit
+    AWAKE second_welcome
+    DEFAULT second_welcome
+	
+Step second_welcome
+    SAY "还在线吗？你可以说“账单”、“支持”、“政策”或“人工”，了解相应的信息。"
+    LISTEN 5 20
+    BRANCH "账单" validation_orders
+    BRANCH "支持" validation_support
+    BRANCH "政策" policy_cmds
+	BRANCH "再见" exit
+	BRANCH "人工" to_human_assistance
+    AWAKE awake_cmds
+    DEFAULT unknown_request
+
+--------- --------- --------- --------- --------- --------- --------- --------- --------- --------- --------- --------- 
+
+Step validation_orders
+	SAY "您的AppleID名称是？"
+	LISTEN 5 20 
+	BRANCH pass order_cmds
+	BRANCH fail unknown_request
+    BRANCH "再见" exit
+	AWAKE awake_cmds
+    DEFAULT unknown_request
+
+Step order_cmds
+    SAY "您想查询关于订阅，订单状态，所有订单还是退货状态的信息？"
+    LISTEN 5 20
+    BRANCH "订阅" subscription_info
+    BRANCH "订单" order_status
+    BRANCH "退货" return_status
+    BRANCH "支持" validation_support
+    BRANCH "政策" policy_cmds
+    BRANCH "再见" exit
+    AWAKE awake_cmds
+    DEFAULT unknown_request
+
+Step subscription_info
+	SAY "您的订阅内容是：" <$subName>
+	SAY "到期时间为：" <$subDueDate>
+	SAY "金额为:" <$subPayment>
+    SAY "您还有其他需要查询的订单信息吗？"
+    LISTEN 5 20
+    BRANCH "订单" order_status
+    BRANCH "退货" return_status
+    BRANCH "支持" validation_support
+    BRANCH "政策" policy_cmds
+    BRANCH "再见" exit
+    AWAKE awake_cmds
+    DEFAULT unknown_request
+
+Step order_status
+    SAY "您的订单号为：" <$orderNo>
+    SAY "订单状态为：" <$orderStatus>
+    SAY "预计送达时间：" <$deliveryDate>
+    SAY "您还有其他需要查询的订单信息吗？"
+    LISTEN 5 20
+    BRANCH "订阅" subscription_info
+    BRANCH "退货" return_status
+    BRANCH "支持" validation_support
+    BRANCH "政策" policy_cmds
+    BRANCH "再见" exit
+    AWAKE awake_cmds 
+    DEFAULT unknown_request
+
+Step return_status
+    SAY "您的退货状态是：" <$returnStatus>
+    SAY "预计完成时间：" <$returnDueDate>
+    SAY "您还有其他需要查询的订单信息吗？"
+    LISTEN 5 20
+    BRANCH "订阅" subscription_info
+    BRANCH "订单" order_status
+    BRANCH "支持" validation_support
+    BRANCH "政策" policy_cmds
+    BRANCH "再见" exit
+    AWAKE awake_cmds
+    DEFAULT unknown_request
+
+--------- --------- --------- --------- --------- --------- --------- --------- --------- --------- --------- --------- 
+
+Step validation_support
+	SAY "您的AppleID名称是？"
+	LISTEN 5 20 
+	BRANCH pass support_cmds
+	BRANCH fail unknown_request
+    BRANCH "再见" exit
+	AWAKE awake_cmds
+    DEFAULT unknown_request
+
+Step support_cmds
+    SAY "感谢你联系Apple支持。你可以进行设备“检测”、了解“维修”渠道、“预约”维修或购买产品“保险” AppleCare+ 服务计划。"
+    LISTEN 5 20
+    BRANCH "检测" troubleshoot
+    BRANCH "维修" how_to_fix
+    BRANCH "预约" genius_bar
+	BRANCH "保险" applecare_plus
+    BRANCH "账单" validation_orders
+    BRANCH "政策" policy_cmds
+    BRANCH "再见" exit
+    AWAKE awake_cmds
+    DEFAULT unknown_request
+
+Step troubleshoot
+	SAY "已经远程发起检测。稍后你可以在设备上查看检测结果。"
+    SAY "您还有其他支持问题吗？你可以了解“维修”渠道、“预约”维修或购买产品“保险” AppleCare+ 服务计划。"
+    LISTEN 5 20
+    BRANCH "维修" how_to_fix
+    BRANCH "预约" genius_bar
+	BRANCH "保险" applecare_plus
+    BRANCH "账单" validation_orders
+    BRANCH "政策" policy_cmds
+    BRANCH "再见" exit
+    AWAKE awake_cmds
+    DEFAULT unknown_request
+
+Step how_to_fix
+    SAY "设备型号：" <$deviceName>
+    SAY "出现的故障为：" <$faultStatus>
+    SAY "建议维修方法：" <$fixMethod>
+    SAY "如果需要查询附近的Apple Store预约维修，请说“预约”。"
+    LISTEN 5 20
+    BRANCH "预约" genius_bar
+    BRANCH "账单" validation_orders
+    BRANCH "政策" policy_cmds
+    BRANCH "再见" exit
+    AWAKE awake_cmds 
+    DEFAULT unknown_request
+
+Step genius_bar
+    SAY "推荐商店：" <$storeName>
+    SAY "可选时间段：" <$ATimeSlots>
+    SAY "如果需要预约，请说“人工”。"
+    LISTEN 5 20
+    BRANCH "检测" troubleshoot
+    BRANCH "维修" how_to_fix
+	BRANCH "保险" applecare_plus
+    BRANCH "账单" validation_orders
+    BRANCH "政策" policy_cmds
+    BRANCH "再见" exit
+    AWAKE awake_cmds
+    DEFAULT unknown_request
+
+Step applecare_plus
+    SAY "您的 AppleCare+ 服务状态为：" <$acStatus>
+    SAY "到期时间：" <$acDueDate>
+    SAY "您还有其他问题吗？"
+    LISTEN 5 20
+    BRANCH "检测" troubleshoot
+    BRANCH "维修" how_to_fix
+    BRANCH "预约" genius_bar
+    BRANCH "账单" validation_orders
+    BRANCH "政策" policy_cmds
+    BRANCH "再见" exit
+    AWAKE awake_cmds
+    DEFAULT unknown_request
+	
+--------- --------- --------- --------- --------- --------- --------- --------- --------- --------- --------- --------- 
+  
+Step policy_cmds
+    SAY "你可以在此了解 Apple 的“隐私政策”，“退货政策”与“辅助功能”。请告诉我你想了解什么？"
+    LISTEN 5 20
+    BRANCH "隐私政策" privacy_policy
+    BRANCH "退货政策" return_policy
+    BRANCH "辅助功能" accessibility
+    BRANCH "账单" validation_orders
+    BRANCH "支持" validation_support
+    AWAKE awake_cmds
+    DEFAULT unknown_request
+	
+Step privacy_policy
+    SAY "在Apple，我们尊重你获知、访问、更正、传输、限制处理和删除你的个⼈数据的能⼒。我们向我们全球的每⼀位客户提供这些权利，如果你选择⾏使这些隐私权，你有权不受到Apple的区别对待，有权从Apple获得与不⾏使隐私权时应获得的同等程度的服务质量。如果被要求同意 Apple 处理你的个⼈数据，你有权随时撤回你的同意。"
+    SAY "您还想了解什么？"
+    LISTEN 5 20
+    BRANCH "退货政策" return_policy
+    BRANCH "辅助功能" accessibility
+    BRANCH "账单" validation_orders
+    BRANCH "支持" validation_support
+    BRANCH "再见" exit
+    AWAKE awake_cmds
+    DEFAULT unknown_request
+
+Step return_policy
+    SAY "如需退回产品，您仅需在产品交付之日起 14 天内在您的个人账户中进行自助退货操作，或者联系我们的顾客服务团队提出退货申请。如果您是通过Apple零售店取货，您也可将您的商品退回到您取货的Apple零售店。 "
+    SAY "您还想了解什么？"
+    LISTEN 5 20
+    BRANCH "隐私政策" privacy_policy
+    BRANCH "辅助功能" accessibility
+    BRANCH "账单" validation_orders
+    BRANCH "支持" validation_support
+    BRANCH "再见" exit
+    AWAKE awake_cmds
+    DEFAULT unknown_request
+
+Step accessibility
+    SAY "好的科技，应让人人都适用。正因如此，我们的产品和服务采取了具有包容性的设计，内置众多辅助功能，帮你能按照适合自己的方式来交流、创作，投入所喜欢的事。"
+    SAY "您还想了解什么？"
+	LISTEN 5 20
+    BRANCH "隐私政策" privacy_policy	
+    BRANCH "退货政策" return_policy
+    BRANCH "账单" validation_orders
+    BRANCH "支持" validation_support
+    BRANCH "再见" exit
+    AWAKE awake_cmds 
+    DEFAULT unknown_request
+
+--------- --------- --------- --------- --------- --------- --------- --------- --------- --------- --------- --------- 
+
+Step unknown_request
+    SAY "好的，明白你的问题。请稍候，正在与专家连线，以协助你解答相关的询问。"
+    DEFAULT to_human_assistance
+
+Step to_human_assistance
+    SAY "已经成功接入人工。很高兴为您效劳，请问您在哪些方面需要协助？"
+    SAY "APPLE RSL 关闭。"
+    EXIT
+    
+Step awake_cmds
+	SAY "还在线吗？有什么需求请告诉我"
+	LISTEN 5 20
+    BRANCH "账单" validation_orders
+    BRANCH "支持" validation_support
+    BRANCH "政策" policy_cmds
+    BRANCH "订阅" validation_orders
+    BRANCH "订单" validation_orders
+    BRANCH "退货" validation_orders
+    BRANCH "检测" validation_support
+    BRANCH "维修" validation_support
+    BRANCH "预约" validation_support
+	BRANCH "保险" validation_support
+    BRANCH "隐私政策" privacy_policy
+    BRANCH "退货政策" return_policy
+    BRANCH "辅助功能" accessibility
+    BRANCH "再见" exit
+    AWAKE exit
+    DEFAULT to_human_assistance
+    
+Step exit
+    SAY "感谢您的来电，再见！"
+    EXIT

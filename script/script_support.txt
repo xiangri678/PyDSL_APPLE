@@ -1,0 +1,168 @@
+Step welcome
+    SAY "感谢你联系Apple客户支持团队。请问今天有什么可以帮到你？你可以说“账单”管理或“账户”管理，查询相应的信息。"
+    LISTEN 5 20
+    BRANCH "账单" validation_orders
+    BRANCH "账户" validation_account
+    BRANCH "再见" exit
+    AWAKE second_welcome
+    DEFAULT second_welcome
+	
+Step second_welcome
+    SAY "还在线吗？你可以说“账单”管理或“账户”管理，查询相应的信息。"
+    LISTEN 5 20
+    BRANCH "账单" validation_orders
+    BRANCH "账户" validation_account
+    BRANCH "再见" exit
+	BRANCH "人工" to_human_assistance
+    AWAKE awake_cmds
+    DEFAULT unknown_request
+    
+--------- --------- --------- --------- --------- --------- --------- --------- --------- --------- --------- --------- 
+
+Step validation_orders
+	SAY "您的AppleID名称是？"
+	LISTEN 5 20 
+	BRANCH pass order_cmds
+	BRANCH fail unknown_request
+    BRANCH "再见" exit
+	AWAKE awake_cmds
+    DEFAULT unknown_request
+
+Step order_cmds
+    SAY "您想查询关于订阅，订单状态，所有订单还是退货状态的信息？"
+    LISTEN 5 20
+    BRANCH "订阅" subscription_info
+    BRANCH "订单" order_status
+    BRANCH "退货" return_status
+	BRANCH "账户" validation_account
+    BRANCH "再见" exit
+    AWAKE awake_cmds
+    DEFAULT unknown_request
+
+Step subscription_info
+	SAY "您的订阅内容是：" <$subName>
+	SAY "到期时间为：" <$subDueDate>
+	SAY "金额为:" <$subPayment>
+    SAY "您还有其他需要查询的订单信息吗？"
+    LISTEN 5 20
+    BRANCH "订单" order_status
+    BRANCH "退货" return_status
+	BRANCH "账户" validation_account
+    BRANCH "再见" exit
+    AWAKE awake_cmds
+    DEFAULT unknown_request
+
+Step order_status
+    SAY "您的订单号为：" <$orderNo>
+    SAY "订单状态为：" <$orderStatus>
+    SAY "预计送达时间：" <$deliveryDate>
+    SAY "您还有其他需要查询的订单信息吗？"
+    LISTEN 5 20
+    BRANCH "订阅" subscription_info
+    BRANCH "退货" return_status
+	BRANCH "账户" validation_account
+    BRANCH "再见" exit
+    AWAKE awake_cmds 
+    DEFAULT unknown_request
+
+Step return_status
+    SAY "您的退货状态是：" <$returnStatus>
+    SAY "预计完成时间：" <$returnDueDate>
+    SAY "您还有其他需要查询的订单信息吗？"
+    LISTEN 5 20
+    BRANCH "订阅" subscription_info
+    BRANCH "订单" order_status
+	BRANCH "账户" validation_account
+    BRANCH "再见" exit
+    AWAKE awake_cmds
+    DEFAULT unknown_request
+
+--------- --------- --------- --------- --------- --------- --------- --------- --------- --------- --------- --------- 
+
+Step validation_account
+	SAY "您的AppleID名称是？"
+	LISTEN 5 20 
+	BRANCH pass account_cmds
+	BRANCH fail unknown_request
+    BRANCH "再见" exit
+	AWAKE awake_cmds
+    DEFAULT unknown_request
+
+Step account_cmds
+    SAY "您想查询关于“iCloud”、“AppleID”还是“钱包”的信息？"
+    LISTEN 5 20
+    BRANCH "icloud" icloud_accound
+    BRANCH "appleid" apple_id
+    BRANCH "钱包" wallet
+	BRANCH "账单" validation_orders
+    BRANCH "再见" exit
+    AWAKE awake_cmds
+    DEFAULT unknown_request
+
+Step icloud_accound
+    SAY "您的 iCloud 账号状态：" <$icState>
+    SAY "存储空间用量：" <$icloudStorageUsage>
+    SAY "您还有其他需要查询的账号信息吗？"
+    LISTEN 5 20
+    BRANCH "appleid" apple_id
+    BRANCH "钱包" wallet
+	BRANCH "账单" validation_orders
+    BRANCH "再见" exit
+    AWAKE awake_cmds 
+    DEFAULT unknown_request
+	
+Step apple_id
+	SAY "您的 AppleID 账号状态：" <$aiStatus>
+	SAY "默认联系方式：" <$aiContact>
+	SAY "账户余额:" <$aiBalance>
+    SAY "您还有其他需要查询的账号信息吗？"
+    LISTEN 5 20
+    BRANCH "icloud" icloud_accound
+    BRANCH "钱包" wallet
+	BRANCH "账单" validation_orders
+    BRANCH "再见" exit
+    AWAKE awake_cmds
+    DEFAULT unknown_request
+	
+Step wallet
+    SAY "您的 Apple Pay 服务状态：" <$apStatus>
+    SAY "交通卡状态：" <$tcStatus>
+    SAY "交通卡余额：" <$tcBalance>
+    SAY "您还有其他需要查询的账号信息吗？"
+    LISTEN 5 20
+    BRANCH "icloud" icloud_accound
+    BRANCH "appleid" apple_id
+	BRANCH "账单" validation_orders
+    BRANCH "再见" exit
+    AWAKE awake_cmds 
+    DEFAULT unknown_request
+
+--------- --------- --------- --------- --------- --------- --------- --------- --------- --------- --------- --------- 
+
+Step unknown_request
+    SAY "好的，明白你的问题。请稍候，正在与专家连线，以协助你解答相关的询问。"
+    DEFAULT to_human_assistance
+
+Step to_human_assistance
+    SAY "已经成功接入人工。很高兴为您效劳，请问您在哪些方面需要协助？"
+    SAY "APPLE RSL 关闭。"
+    EXIT
+    
+Step awake_cmds
+	SAY "还在线吗？有什么需求请告诉我"
+	LISTEN 5 20
+    BRANCH "账单" validation_orders
+    BRANCH "账户" validation_account
+    BRANCH "订阅" validation_orders
+    BRANCH "订单" validation_orders
+    BRANCH "退货" validation_orders
+    BRANCH "icloud" validation_account
+    BRANCH "appleid" validation_account
+    BRANCH "钱包" validation_account
+    BRANCH "再见" exit
+    AWAKE exit
+    DEFAULT to_human_assistance
+    
+Step exit
+    SAY "感谢您的来电，再见！"
+    EXIT

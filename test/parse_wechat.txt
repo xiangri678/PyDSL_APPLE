@@ -1,0 +1,176 @@
+Step #1
+Name: welcome
+Expressions: ['感谢你了解 Apple。请问今天你想了解什么？', '你可以说“产品”、“促销”、“账单”或“人工”，了解相应的信息。']
+Listen: [5, 20]
+Answers: {'产品': 'shopping_cmds', '促销': 'promotion_cmds', '账单': 'validation_orders', '人工': 'to_human_assistance', '再见': 'exit'}
+Awake: second_welcome
+Default: second_welcome
+
+Step #2
+Name: second_welcome
+Expressions: ['还在线吗？你可以说“产品”、“促销”、“账单”或“人工”，了解相应的信息。']
+Listen: [5, 20]
+Answers: {'产品': 'shopping_cmds', '促销': 'promotion_cmds', '账单': 'validation_orders', '人工': 'to_human_assistance', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #3
+Name: shopping_cmds
+Expressions: ['您想了解哪一款产品的信息？']
+Listen: [5, 20]
+Answers: {'手机': 'iphone_info', '平板': 'ipad_info', '电脑': 'mac_info', '耳机': 'airpods_info', '促销': 'promotion_cmds', '账单': 'validation_orders', '人工': 'to_human_assistance', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #4
+Name: iphone_info
+Expressions: ['iPhone 15 Pro 和 iPhone 15 Pro Max 的钛金属设计质地坚固而又异常轻盈，采用全新弧形边沿；新推出操作按钮；摄像头强力升级；搭载 A17 Pro 芯片，让性能和手游体验跃入新境界。', '您还想了解什么？']
+Listen: [5, 20]
+Answers: {'平板': 'ipad_info', '电脑': 'mac_info', '耳机': 'airpods_info', '促销': 'promotion_cmds', '账单': 'validation_orders', '人工': 'to_human_assistance', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #5
+Name: ipad_info
+Expressions: ['新版 iPad Pro 升级 Apple Pencil 悬停体验，支持 ProRes 视频拍摄、极速 802.11ax 无线局域网连接并带来 iPadOS 17 的强大功能。', '您还想了解什么？']
+Listen: [5, 20]
+Answers: {'手机': 'iphone_info', '电脑': 'mac_info', '耳机': 'airpods_info', '促销': 'promotion_cmds', '账单': 'validation_orders', '人工': 'to_human_assistance', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #6
+Name: mac_info
+Expressions: ['M3 系列芯片具备新一代图形处理器架构和更快的中央处理器，为 MacBook Pro 带来更强劲性能与非凡新功能。', '您还想了解什么？']
+Listen: [5, 20]
+Answers: {'手机': 'iphone_info', '平板': 'ipad_info', '耳机': 'airpods_info', '促销': 'promotion_cmds', '账单': 'validation_orders', '人工': 'to_human_assistance', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #7
+Name: airpods_info
+Expressions: ['AirPods Pro（第二代）由全新 H2 芯片驱动，解锁突破性音频表现，包括主动降噪功能与通透模式的重大升级，同时带来体验空间音频的独特方式，进一步提升沉浸感。', '您还想了解什么？']
+Listen: [5, 20]
+Answers: {'手机': 'iphone_info', '平板': 'ipad_info', '电脑': 'mac_info', '促销': 'promotion_cmds', '账单': 'validation_orders', '人工': 'to_human_assistance', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #8
+Name: promotion_cmds
+Expressions: ['目前 Apple Store 正在进行2023“节日季”促销。同时有面向“教育”、“商务”、“医疗”的优惠。认证的“翻新”产品同样拥有优惠。你想了解什么？']
+Listen: [5, 20]
+Answers: {'节日季': 'current_event', '教育': 'edu_retail', '商务': 'business_retail', '医疗': 'healthcare_retail', '翻新': 'refurbished', '产品': 'shopping_cmds', '账单': 'validation_orders', '人工': 'to_human_assistance'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #9
+Name: current_event
+Expressions: ['这个商店， 备齐好礼，齐刷刷满意。 满\u200d满魔力心心念。前往apple.com了解更多。', '您还想了解什么？']
+Listen: [5, 20]
+Answers: {'教育': 'edu_retail', '商务': 'business_retail', '医疗': 'healthcare_retail', '翻新': 'refurbished', '产品': 'shopping_cmds', '政策': 'policy_cmds', '账单': 'validation_orders', '人工': 'to_human_assistance', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #10
+Name: edu_retail
+Expressions: ['从开学第一天，到入职理想工作，这一路你都能借助 Mac 和 iPad 的动力、性能和功能，一步一个脚印地做好准备。Apple 的各款产品都能简单顺畅地配合使用，让你能集中精力处理重要的事。进击吧，创作人。去重新创想一切，改造一切，探索新的追求，磨练新的技能。去做款 app，拍部剧，或者闹出点大动静。你给自己的这份惊喜，会让全世界惊叹。', '您还想了解什么？']
+Listen: [5, 20]
+Answers: {'节日季': 'current_event', '商务': 'business_retail', '医疗': 'healthcare_retail', '翻新': 'refurbished', '产品': 'shopping_cmds', '政策': 'policy_cmds', '账单': 'validation_orders', '人工': 'to_human_assistance', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #11
+Name: business_retail
+Expressions: ['我们会协助你选购合适的硬件和设备、对比各款 app，并帮你找到符合预算的灵活购买方式，所有这些都不额外收费。我们还会确保能和你现有的系统协同工作，如 QuickBooks 及 Microsoft 365 等都与 Apple 产品兼容，马上就能用起来。我们随时待命，帮你保持业务的顺畅运营。Apple 产品经久耐用，因此值得投资。', '您还想了解什么？']
+Listen: [5, 20]
+Answers: {'节日季': 'current_event', '教育': 'edu_retail', '医疗': 'healthcare_retail', '翻新': 'refurbished', '产品': 'shopping_cmds', '政策': 'policy_cmds', '账单': 'validation_orders', '人工': 'to_human_assistance', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #12
+Name: healthcare_retail
+Expressions: ['医护人员在拥有强大且直观的工具时能提供最佳的医疗服务。我们的技术帮助他们在医院内高效工作,与患者远程连接,并进行开创性的医学研究。其结果是医疗服务变得更有效、更个性化,并最终更具人性化。', '您还想了解什么？']
+Listen: [5, 20]
+Answers: {'节日季': 'current_event', '教育': 'edu_retail', '商务': 'business_retail', '翻新': 'refurbished', '产品': 'shopping_cmds', '政策': 'policy_cmds', '账单': 'validation_orders', '人工': 'to_human_assistance', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #13
+Name: refurbished
+Expressions: ['购买认证的翻新产品，享受一年保修服务以及 Apple 认证的翻新产品卓越品质承诺。', '您还想了解什么？']
+Listen: [5, 20]
+Answers: {'节日季': 'current_event', '教育': 'edu_retail', '商务': 'business_retail', '医疗': 'healthcare_retail', '产品': 'shopping_cmds', '政策': 'policy_cmds', '账单': 'validation_orders', '人工': 'to_human_assistance', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #14
+Name: validation_orders
+Expressions: ['您的AppleID名称是？']
+Listen: [5, 20]
+Answers: {'pass': 'order_management_cmds', 'fail': 'unknown_request', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #15
+Name: order_management_cmds
+Expressions: ['您想查询关于订阅，订单状态，所有订单还是退货状态的信息？']
+Listen: [5, 20]
+Answers: {'订阅': 'subscription_info', '订单': 'order_status', '退货': 'return_status', '产品': 'shopping_cmds', '促销': 'promotion_cmds', '人工': 'to_human_assistance', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #16
+Name: subscription_info
+Expressions: ['您的订阅内容是：', '<$subName>', '到期时间为：', '<$subDueDate>', '金额为:', '<$subPayment>', '您还有其他需要查询的订单信息吗？']
+Listen: [5, 20]
+Answers: {'订单': 'order_status', '退货': 'return_status', '产品': 'shopping_cmds', '促销': 'promotion_cmds', '人工': 'to_human_assistance', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #17
+Name: order_status
+Expressions: ['您的订单号为：', '<$orderNo>', '订单状态为：', '<$orderStatus>', '预计送达时间：', '<$deliveryDate>', '您还有其他需要查询的订单信息吗？']
+Listen: [5, 20]
+Answers: {'订阅': 'subscription_info', '退货': 'return_status', '产品': 'shopping_cmds', '促销': 'promotion_cmds', '人工': 'to_human_assistance', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #18
+Name: return_status
+Expressions: ['您的退货状态是：', '<$returnStatus>', '预计完成时间：', '<$returnDueDate>', '您还有其他需要查询的订单信息吗？']
+Listen: [5, 20]
+Answers: {'订阅': 'subscription_info', '订单': 'order_status', '产品': 'shopping_cmds', '促销': 'promotion_cmds', '人工': 'to_human_assistance', '再见': 'exit'}
+Awake: awake_cmds
+Default: unknown_request
+
+Step #19
+Name: unknown_request
+Expressions: ['好的，明白你的问题。请稍候，正在与专家连线，以协助你解答相关的询问。']
+Listen: []
+Answers: {}
+Awake: None
+Default: to_human_assistance
+
+Step #20
+Name: to_human_assistance
+Expressions: ['已经成功接入人工。很高兴为您效劳，请问您在哪些方面需要协助？', 'APPLE RSL 关闭。']
+Listen: []
+Answers: {}
+Awake: None
+Default: None
+
+Step #21
+Name: awake_cmds
+Expressions: ['还在线吗？有什么需求请告诉我']
+Listen: [5, 20]
+Answers: {'产品': 'shopping_cmds', '促销': 'promotion_cmds', '账单': 'validation_orders', '手机': 'iphone_info', '平板': 'ipad_info', '电脑': 'mac_info', '耳机': 'airpods_info', '节日季': 'current_event', '教育': 'edu_retail', '商务': 'business_retail', '医疗': 'healthcare_retail', '翻新': 'refurbished', '订阅': 'validation_orders', '订单': 'validation_orders', '退货': 'validation_orders', '再见': 'exit'}
+Awake: exit
+Default: to_human_assistance
+
+Step #22
+Name: exit
+Expressions: ['感谢您的来电，再见！']
+Listen: []
+Answers: {}
+Awake: None
+Default: None
+
