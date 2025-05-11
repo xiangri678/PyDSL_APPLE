@@ -15,13 +15,15 @@ A domain-specific language (DSL) for defining and implementing automated custome
 - 6 service categories: Product Information, Order Processing, Account Management, Technical Support, Company Policies, and Promotions
 - Comprehensive testing framework
 
+![Execution Process](pic/执行流程.jpeg)
+
 ## Installation
 
 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/Apple_RSL.git
-cd Apple_RSL
+git clone https://github.com/xiangri678/PyDSL_APPLE.git
+cd PyDSL_APPLE
 ```
 
 2. Install dependencies
@@ -128,14 +130,15 @@ python test_interpreter_V1.py
 - 6种服务类别：产品信息、订单处理、账户管理、技术支持、公司政策和促销活动
 - 全面的测试框架
 
+![Execution Process](pic/执行流程.jpeg)
 
 ## 安装方法
 
 1. 克隆仓库
 
 ```bash
-git clone https://github.com/yourusername/Apple_RSL.git
-cd Apple_RSL
+git clone https://github.com/xiangri678/PyDSL_APPLE.git
+cd PyDSL_APPLE
 ```
 
 2. 安装依赖
